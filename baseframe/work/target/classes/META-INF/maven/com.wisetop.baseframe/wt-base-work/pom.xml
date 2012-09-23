@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.wisetop.baseframe</groupId>
+	<artifactId>wt-base-work</artifactId>
+	<version>0.0.5</version>
+	<dependencies>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.wisetop.web</groupId>
+			<artifactId>wt-util</artifactId>
+			<version>6.0</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>oracle.xmlparser</artifactId>
+					<groupId>oracle</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>hadoop-core</artifactId>
+					<groupId>org.apache.hadoop</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcomponents-core</artifactId>
+			<version>4.1.3</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.1.3</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.1.3</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient-cache</artifactId>
+			<version>4.1.3</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<target>1.5</target>
+					<source>1.5</source>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<testFailureIgnore>true</testFailureIgnore>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<distributionManagement>
+		<repository>
+			<id>nexus</id>
+			<name>Nexus Staging Repo</name>
+			<url>http://192.168.199.131:8081/nexus/content/repositories/wisetop-release</url>
+		</repository>
+
+
+		<snapshotRepository>
+			<id>nexus</id>
+			<name>Local Nexus Repository</name>
+			<url>http://192.168.199.131:8081/nexus/content/repositories/wisetop-snapshot</url>
+		</snapshotRepository>
+
+	</distributionManagement>
+</project>
