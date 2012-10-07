@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	<package name="padmin" namespace="" extends="struts-default">
+		<action name="admin">
+			<result name="success">/index.jsp</result>
+		</action>
+		<action name="task_*" class="taskAction" method="{1}">
+			<result name="fetchTask">/jsp/task/fetchTask.jsp</result>
+			<result name="addTask">/jsp/task/addTask.jsp</result>
+			<result name="delTask">/jsp/task/delTask.jsp</result>			
+		</action>
+		<action name="util_*" class="utilAction" method="{1}">
+			<result name="connDb">/jsp/util/connDb.jsp</result>
+		</action>	
+		
+		<action name="test_*" class="taskAction" method="{1}">
+			<result name="fetchTask" type="xslt" >
+				<param name="exposedValue">{rtnData.task.items,rtnData.task.pageSize}</param>
+			</result>
+			<result name="addTask">/jsp/task/addTask.jsp</result>
+			<result name="delTask">/jsp/task/delTask.jsp</result>			
+		</action>			
+	</package>
+</struts>

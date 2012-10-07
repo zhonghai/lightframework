@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-schema="APP" match-name="T_DBCONNECTION"/>
+  <table-filter match-schema="APP" match-name="T_MYTASK"/>
+  <table-filter match-schema="APP" match-name="T_PROCESS"/>
+  <table-filter match-schema="APP" match-name="T_PROCESS_DBCONN"/>
+  <table-filter match-schema="APP" match-name="T_PROCESS_DO"/>
+  <table-filter match-schema="APP" match-name="T_PROCESS_DO_BOA"/>
+  <table-filter match-schema="APP" match-name="T_TASK"/>
+  <table-filter match-schema="APP" match-name="T_WORK"/>
+</hibernate-reverse-engineering>

@@ -1,0 +1,4 @@
+{
+"opResult":"${opResult}",
+"errmsg":"${errmsg}" 
+ }

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-9-11 22:49:17 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.wisesource.product.eddm.domain.TProcessDbconn" table="T_PROCESS_DBCONN" schema="APP">
+        <composite-id name="id" class="com.wisesource.product.eddm.domain.TProcessDbconnId">
+            <key-property name="fprocessid" type="string">
+                <column name="FPROCESSID" length="100" />
+            </key-property>
+            <key-property name="fconnid" type="string">
+                <column name="FCONNID" length="100" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

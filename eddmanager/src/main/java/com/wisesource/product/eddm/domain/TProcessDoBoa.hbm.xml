@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-9-11 22:49:17 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.wisesource.product.eddm.domain.TProcessDoBoa" table="T_PROCESS_DO_BOA" schema="APP">
+        <id name="fdoboaid" type="string">
+            <column name="FDOBOAID" length="100" />
+            <generator class="assigned" />
+        </id>
+        <property name="fdoid" type="string">
+            <column name="FDOID" length="100" not-null="true" />
+        </property>
+        <property name="connnm" type="string">
+            <column name="CONNNM" length="100" not-null="true" />
+        </property>
+        <property name="tbl" type="string">
+            <column name="TBL" length="100" not-null="true" />
+        </property>
+        <property name="keyfields" type="string">
+            <column name="KEYFIELDS" length="200" not-null="true" />
+        </property>
+        <property name="fields" type="string">
+            <column name="FIELDS" length="1000" not-null="true" />
+        </property>
+        <property name="uptfields" type="string">
+            <column name="UPTFIELDS" length="1000" not-null="true" />
+        </property>
+        <property name="onlyupdate" type="string">
+            <column name="ONLYUPDATE" length="1" />
+        </property>
+        <property name="allowupdate" type="string">
+            <column name="ALLOWUPDATE" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,4 @@
+#Sun Aug 05 15:16:06 CST 2012
+default.configuration=derby
+eclipse.preferences.version=1
+hibernate3.enabled=true

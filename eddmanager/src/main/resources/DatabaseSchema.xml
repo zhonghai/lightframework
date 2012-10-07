@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<tables>
+		<table name="t_dbconnection">
+			<cols>
+				<col name="fconnid">varchar(100) not null </col>
+				<col name="fname">varchar(100)</col>
+				<col name="fdriver">varchar(100)</col>
+				<col name="furl">varchar(250)</col>
+				<col name="fusername">varchar(100)</col>
+				<col name="fpassword">varchar(100)</col>
+			</cols>
+			<modifys>
+				<mod>ALTER TABLE t_dbconnection ADD COLUMN fconnid varchar(100)</mod>
+				<mod>ALTER TABLE t_dbconnection ALTER COLUMN fconnid not null</mod>
+				<mod>ALTER TABLE t_dbconnection ALTER COLUMN fname not null</mod>
+				<mod>ALTER TABLE t_dbconnection ADD PRIMARY KEY (fconnid)</mod>
+			</modifys>
+		</table>
+		<table name="t_task">
+			<cols>
+				<col name="ftaskid">varchar(100)</col>
+				<col name="ftaskname">varchar(200)</col>
+				<col name="ftaskdesc">varchar(500)</col>
+				<col name="fjsondata">varchar(32000)</col>
+			</cols>
+			<modifys>
+				<mod>ALTER TABLE t_task ALTER COLUMN ftaskid not null</mod>
+				<mod>ALTER TABLE t_task ADD PRIMARY KEY (ftaskid)</mod>
+				<mod>ALTER TABLE t_task ALTER COLUMN fjsondata SET DATA TYPE	varchar(32000)</mod>
+			</modifys>
+		</table>
+
+		<table name="t_work">
+			<cols>
+				<col name="ftaskid">varchar(100)</col>
+				<col name="fworkid">varchar(100)</col>
+				<col name="fpworkid">varchar(100)</col>
+				<col name="dataSource">varchar(100)</col>
+				<col name="fworkname">varchar(200)</col>
+				<col name="keys">varchar(200)</col>
+				<col name="foreignkey">varchar(200)</col>				
+				<col name="fsql">varchar(32000)</col>
+				<col name="fprocessid">varchar(100)</col>
+			</cols>
+			<modifys>
+				<mod>ALTER TABLE t_work ALTER COLUMN ftaskid null</mod>
+				<mod>ALTER TABLE t_work ALTER COLUMN fworkid not null</mod>
+				<mod>ALTER TABLE t_work ADD PRIMARY KEY (fworkid)</mod>
+				<mod>ALTER TABLE t_work ADD COLUMN fpworkid varchar(100)</mod>
+			</modifys>
+		</table>
+
+		<table name="t_process">
+			<cols>
+				<col name="fworkid">varchar(100)  </col>
+				<col name="fprocessid">varchar(100)  </col>				
+			</cols>
+			<modifys>
+				<mod>ALTER TABLE t_process ADD COLUMN fprocessid varchar(100)</mod>
+				<mod>ALTER TABLE t_process ALTER COLUMN fworkid not null</mod>
+				<mod>ALTER TABLE t_process ALTER COLUMN fprocessid not null</mod>
+				<mod>ALTER TABLE t_process ADD PRIMARY KEY (fprocessid)</mod>
+			</modifys>
+		</table>
+		
+		<table name="t_process_dbconn">
+			<cols>
+				<col name="fprocessid">varchar(100)  not null</col>
+				<col name="fconnid">varchar(100) </col>				
+			</cols>
+			<modifys>
+				<mod>ALTER TABLE t_process_dbconn ALTER COLUMN fprocessid not null</mod>
+				<mod>ALTER TABLE t_process_dbconn ALTER COLUMN fconnid not null</mod>
+				<mod>ALTER TABLE t_process_dbconn ADD PRIMARY KEY (fprocessid,fconnid)</mod>
+				<mod>drop TABLE t_model </mod>				
+			</modifys>
+		</table>		
+		
+		<table name="t_process_do">
+			<cols>
+				<col name="fprocessid">varchar(100)  not null</col>
+				<col name="fdoid">varchar(100) </col>
+				<col name="flag">varchar(100) </col>
+			</cols>
+			<modifys>
+				<mod>ALTER TABLE t_process_do ALTER COLUMN fprocessid not null</mod>
+				<mod>ALTER TABLE t_process_do ALTER COLUMN fdoid not null</mod>
+				<mod>ALTER TABLE t_process_do ADD PRIMARY KEY (fdoid)</mod>	
+			</modifys>
+		</table>		
+		
+		<table name="t_process_do_boa">
+			<cols>
+				<col name="fdoid">varchar(100)  not null</col>
+				<col name="fdoboaid">varchar(100) </col>
+				<col name="connnm">varchar(100)  </col>
+				<col name="tbl">varchar(100)  </col>
+				<col name="keyFields">varchar(200)  </col>
+				<col name="fields">varchar(1000)  </col>
+				<col name="uptFields">varchar(1000) </col>
+				<col name="onlyUpdate">varchar(1) </col>
+				<col name="allowUpdate">varchar(1) </col>			
+			</cols>
+			<modifys>
+				<mod>ALTER TABLE t_process_do_boa ALTER COLUMN fdoid not null</mod>
+				<mod>ALTER TABLE t_process_do_boa ALTER COLUMN fdoboaid not null</mod>
+				<mod>ALTER TABLE t_process_do_boa ALTER COLUMN connnm not null</mod>
+				<mod>ALTER TABLE t_process_do_boa ALTER COLUMN tbl not null</mod>
+				<mod>ALTER TABLE t_process_do_boa ALTER COLUMN keyFields not null</mod>
+				<mod>ALTER TABLE t_process_do_boa ALTER COLUMN uptFields not null</mod>
+				<mod>ALTER TABLE t_process_do_boa ALTER COLUMN fields not null</mod>
+				<mod>ALTER TABLE t_process_do_boa ADD PRIMARY KEY (fdoboaid)</mod>	
+				<mod>ALTER TABLE t_process_do_boa ALTER COLUMN fields SET DATA TYPE varchar(1000)</mod>	
+				<mod>ALTER TABLE t_process_do_boa ALTER COLUMN uptFields SET DATA TYPE varchar(1000)</mod>
+				<mod>ALTER TABLE t_process_do_boa ADD COLUMN allowUpdate varchar(1)</mod>	
+			</modifys>
+		</table>
+		
+	<table name="t_mytask">
+			<cols>
+				<col name="ftaskid">varchar(100)</col>					
+			</cols>
+			<modifys>
+				<mod>ALTER TABLE t_mytask ALTER COLUMN ftaskid not null</mod>				
+			</modifys>
+		</table>
+	</tables>
+</root>

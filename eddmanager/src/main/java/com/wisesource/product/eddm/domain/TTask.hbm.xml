@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-9-11 22:49:17 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.wisesource.product.eddm.domain.TTask" table="T_TASK" schema="APP">
+        <id name="ftaskid" type="string">
+            <column name="FTASKID" length="100" />
+            <generator class="assigned" />
+        </id>
+        <property name="ftaskname" type="string">
+            <column name="FTASKNAME" length="200" />
+        </property>
+        <property name="ftaskdesc" type="string">
+            <column name="FTASKDESC" length="500" />
+        </property>
+        <property name="fjsondata" type="string">
+            <column name="FJSONDATA" length="32000" />
+        </property>
+    </class>
+</hibernate-mapping>

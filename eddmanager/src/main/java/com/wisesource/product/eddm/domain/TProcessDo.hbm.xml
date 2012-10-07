@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-9-11 22:49:17 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.wisesource.product.eddm.domain.TProcessDo" table="T_PROCESS_DO" schema="APP">
+        <id name="fdoid" type="string">
+            <column name="FDOID" length="100" />
+            <generator class="assigned" />
+        </id>
+        <property name="fprocessid" type="string">
+            <column name="FPROCESSID" length="100" not-null="true" />
+        </property>
+        <property name="flag" type="string">
+            <column name="FLAG" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

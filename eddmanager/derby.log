@@ -1,0 +1,10 @@
+----------------------------------------------------------------
+Sat Aug 25 23:45:18 CST 2012:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0139-5e75-6f40-000001686fc8 
+on database directory E:\zh\JavaDev\workSpace\gzcdc\db_EQ  with class loader ContextLoader@EDDManager 
+Loaded from file:/E:/m2-repo/repository/org/apache/derby/derby/10.8.1.2/derby-10.8.1.2.jar
+java.vendor=Sun Microsystems Inc.
+java.runtime.version=1.6.0_20-b02
+user.dir=I:\svn\系统文档\卫生许可监督系统\SRC\Java\EDDManager\eddmanager
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

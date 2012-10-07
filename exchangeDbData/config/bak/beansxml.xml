@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+             http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+        http://www.springframework.org/schema/jee 
+             http://www.springframework.org/schema/jee/spring-jee-2.0.xsd
+        http://www.springframework.org/schema/util 
+             http://www.springframework.org/schema/util/spring-util-2.0.xsd
+        http://www.springframework.org/schema/aop 
+             http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+        http://www.springframework.org/schema/tx 
+             http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
+	default-lazy-init="true">
+
+	<bean id="mainwork" class="com.wisetop.exchangedata.main.MainWork">
+		<property name="workList">
+			<list>
+				<ref bean="dbto" />
+			</list>
+		</property>		
+	</bean>
+
+<bean id="dbto" class="com.wisetop.base.work.impl.DbTransportWorkImpl">
+		<property name="dataSource">
+			<ref bean="DataSourceTj" />
+		</property>
+		<property name="name">
+			<value>tj</value>
+		</property>
+		<property name="sql">
+			<value>
+				SELECT  
+				CONTID,CATAID,TITLE,KEYWORDS,CONTENT,AUTHOR,SOURCE,PUBDATE,PUBSTATE,ISSHOWNOW,SHOWDATE,ISCANCEL,CANCELDATE,ISAUTODEL,DELETEDATE,CSTATE,ISSHOWFRNT,EORDERNO,USERID,PICNAME,ISSHOWINFO,ISSETFIRST,INTSTATE
+				FROM CONTENT 
+			</value>
+		</property>
+		<property name="keys">
+			<value>CONTID</value>
+		</property>
+		<property name="foreignkey">
+			<value></value>
+		</property>
+
+		<property name="process">
+			<ref bean="dbWorkProcess" />
+		</property>
+</bean>
+
+<bean id = "doinsert" class="com.wisetop.base.work.impl.DbDoInsertOrUpdate"   scope="singleton" >
+	<property name="setProperties">
+			<list>
+				<ref bean="setDoPropertiesData" />				
+			</list>
+	</property>
+	<property name="connNm">
+		<value>destConn</value>
+	</property>		
+	
+	<property name="tbl">
+		<value>CONTENT</value>
+	</property>	
+	<property name="keyFields">
+		<value>CONTID,CATAID</value>
+	</property>
+	<property name="fields">
+		<value> 
+			CONTID,CATAID,TITLE,KEYWORDS,CONTENT,AUTHOR,SOURCE,PUBDATE,PUBSTATE,ISSHOWNOW,SHOWDATE,ISCANCEL,CANCELDATE,ISAUTODEL,DELETEDATE,CSTATE,ISSHOWFRNT,EORDERNO,USERID,PICNAME,ISSHOWINFO,ISSETFIRST,INTSTATE
+		</value>
+	</property>	
+	<property name="uptFields">
+		<value> 
+			CONTID,CATAID,TITLE,KEYWORDS,CONTENT,AUTHOR,SOURCE,PUBDATE,PUBSTATE,ISSHOWNOW,SHOWDATE,ISCANCEL,CANCELDATE,ISAUTODEL,DELETEDATE,CSTATE,ISSHOWFRNT,EORDERNO,USERID,PICNAME,ISSHOWINFO,ISSETFIRST,INTSTATE
+		</value>
+	</property>		
+	<property name="allowUpdate">
+		<value>true</value>
+	</property>		
+</bean>
+
+<bean id = "setDoPropertiesData" class="com.wisetop.base.work.set.SetIDoPropertiesFromProcess">
+		<property name="fields">
+			<value>data-&gt;data</value>
+		</property>
+</bean>
+
+<bean id = "doupdate" class="com.wisetop.base.work.impl.DbDoInsertOrUpdate">
+	<property name="setProperties">
+			<list>
+				<ref bean="setDoPropertiesData" />				
+			</list>
+	</property>
+	<property name="connNm">
+		<value>myworkconn</value>
+	</property>	
+	<property name="tbl">
+		<value>jktj_j</value>
+	</property>	
+	<property name="keyFields">
+		<value>tsm</value>
+	</property>
+	<property name="uptFields">
+		<value>fflag</value>
+	</property>		
+	<property name="onlyUpdate">
+		<value>true</value>
+	</property>		
+</bean>
+
+<bean id="setDoProperties" class="com.wisetop.base.work.set.SetIDoPropertiesFromProcess" />
+
+<bean id = "dbWorkProcess" class="com.wisetop.exchangedata.process.DbProcessImpl">
+		<property name="connDSMap">
+			<map>
+				<entry key="destConn">
+					<ref bean="destSource"/>
+				</entry>
+			</map>
+		</property>	
+	<property name="beforeDo">
+			<list>
+				<ref bean="doinsert" />
+			</list>
+	</property>
+	
+	<property name="ifCommit">
+		<value>true</value>
+	</property>
+	
+</bean>
+
+<bean id="destSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"  >
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:oracle:thin:@121.14.38.4:1521:nxjds</value>
+		</property>
+		<property name="username">
+			<value>WEB</value>
+		</property>
+		<property name="password">
+			<value>web</value>
+		</property>
+		<property name="defaultAutoCommit" value="false"/>
+</bean>
+
+<bean id="DataSourceTj" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"  >
+		<property name="driverClassName">
+			<value>com.microsoft.sqlserver.jdbc.SQLServerDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:sqlserver://121.14.38.4:1433;DatabaseName=nnswsjd</value>
+		</property>
+		<property name="username">
+			<value>nnswsjd2012</value>
+		</property>
+		<property name="password">
+			<value>@nnswsjd2012#</value>
+		</property>
+		<property name="defaultAutoCommit" value="false"/>
+</bean>
+
+<!-- 
+<bean id="logSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"  >
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:oracle:thin:@127.0.0.1:1521:orcl</value>
+		</property>
+		<property name="username">
+			<value>WEB</value>
+		</property>
+		<property name="password">
+			<value>web</value>
+		</property>
+		<property name="defaultAutoCommit" value="false"/>
+</bean>
+
+<bean id="dataSource111" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"  scope="singleton" >
+		<property name="driverClassName">
+			<value>sun.jdbc.odbc.JdbcOdbcDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:odbc:PFTSUITE</value>
+		</property>
+		<property name="username">
+			<value></value>
+		</property>
+		<property name="password">
+			<value></value>
+		</property>		
+</bean>
+
+
+			<value>jdbc:odbc:Driver={Microsoft Visual FoxPro Driver};SourceType=DBF;SourceDB=I:/PFTSUITE/;Exclusive=No;</value>
+			<value>jdbc:odbc:Driver={Microsoft dBASE Driver (*.dbf)};DBQ=I:\\PFTSUITE</value>
+property name="defaultAutoCommit" value="false"/ 
+
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"  scope="singleton" >
+		<property name="driverClassName">
+			<value>jstels.jdbc.dbf.DBFDriver2</value>
+		</property>
+		<property name="url">
+			<value>jdbc:jstels:dbf:I:/PFTSUITE</value>
+		</property>
+		<property name="username">
+			<value></value>
+		</property>
+		<property name="password">
+			<value></value>
+		</property>		
+</bean>
+
+ -->
+
+</beans>

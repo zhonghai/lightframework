@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<!-- <value>WEB-INF/mail.properties</value> -->
+				<!-- <value>WEB-INF/jdbc.properties</value> -->
+				<value>classpath*:/jdbc.properties</value>
+				<!-- <value>WEB-INF/oscache.properties</value> -->
+			</list>
+		</property>
+	</bean>
+	<!-- MailSender used by EmailAdvice -->
+	<!-- <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
+		<property name="host" value="${mail.host}"/> </bean> -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		dependency-check="none">
+		<!-- del on 2012-05-15 by zh destroy-method="close" -->
+		<property name="driverClassName" value="${datasource.driverClassName}" />
+		<property name="url" value="${datasource.url}" />
+		<property name="username" value="${datasource.username}" />
+		<property name="password" value="${datasource.password}" />
+		<property name="defaultAutoCommit" value="false"/>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+		<!-- <property name="mappingResources"> <list> <value>com/wisetop/npf/domain/base/User.hbm.xml</value> 
+			<value>com/wisetop/npf/domain/base/IpTbcOp.hbm.xml</value> <value>com/wisetop/npf/domain/base/IbTbcRole.hbm.xml</value> 
+			<value>com/wisetop/npf/domain/base/IpTbcOprole.hbm.xml</value> <value>com/wisetop/npf/domain/base/QueryLine.hbm.xml</value> 
+			<value>com/wisetop/npf/domain/sns/SnsTbsBlog.hbm.xml</value> <value>com/wisetop/npf/domain/sns/SnsTbsTags.hbm.xml</value> 
+			<value>com/wisetop/npf/domain/sns/SnsTbsQuestion.hbm.xml</value> </list> 
+			</property> -->
+		<property name="mappingLocations">
+			<value>classpath*:com/wisesource/**/domain/**/*.hbm.xml</value>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.jdbc.fetch_size">
+					${hibernate.jdbc.fetch_size}
+				</prop>
+				<prop key="hibernate.jdbc.batch_size">
+					${hibernate.jdbc.batch_size}
+				</prop>
+				<!-- control the commit action -->
+				<prop key="hibernate.connection.autocommit">false</prop>
+				<!-- for oracle clob? -->
+				<prop key="hibernate.connection.SetBigStringTryClob">true</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 配置事务管理器bean,使用HibernateTransactionManager事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<!-- 为事务管理器注入sessionFactory" -->
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 配置事务拦截器Bean -->
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<!-- 为事务拦截器bean注入一个事物管理器 -->
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="transactionAttributes">
+			<!-- 定义事务传播属性 -->
+			<props>
+				<prop key="insert*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="update*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="save*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="add*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="change*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="move*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="accept*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="refuse*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 定义BeanNameAutoProxyCreator -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<!-- 指定满足哪些bean自动生成业务代理 -->
+		<!-- <property name="beanNames"> <list> <value>userService</value> <value>tagService</value> 
+			<value>questionService</value> </list> </property> -->
+		<property name="beanNames">
+			<value>*Service,*ServiceImpl,*Dao,*DaoImpl</value>			
+		</property>
+
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+				<!-- 可增加其它的interceptor -->
+			</list>
+		</property>
+	</bean>
+</beans>

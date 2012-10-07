@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-9-11 22:49:17 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.wisesource.product.eddm.domain.TDbconnection" table="T_DBCONNECTION" schema="APP">
+        <id name="fconnid" type="string">
+            <column name="FCONNID" length="100" />
+            <generator class="assigned" />
+        </id>
+        <property name="fdriver" type="string">
+            <column name="FDRIVER" length="100" />
+        </property>
+        <property name="furl" type="string">
+            <column name="FURL" length="250" />
+        </property>
+        <property name="fusername" type="string">
+            <column name="FUSERNAME" length="100" />
+        </property>
+        <property name="fpassword" type="string">
+            <column name="FPASSWORD" length="100" />
+        </property>
+        <property name="fname" type="string">
+            <column name="FNAME" length="100" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

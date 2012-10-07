@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-9-11 22:49:17 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.wisesource.product.eddm.domain.TWork" table="T_WORK" schema="APP">
+        <id name="fworkid" type="string">
+            <column name="FWORKID" length="100" />
+            <generator class="assigned" />
+        </id>
+        <property name="ftaskid" type="string">
+            <column name="FTASKID" length="100" />
+        </property>
+        <property name="fpworkid" type="string">
+            <column name="FPWORKID" length="100" />
+        </property>
+        <property name="datasource" type="string">
+            <column name="DATASOURCE" length="100" />
+        </property>
+        <property name="fworkname" type="string">
+            <column name="FWORKNAME" length="200" />
+        </property>
+        <property name="keys" type="string">
+            <column name="KEYS" length="200" />
+        </property>
+        <property name="fsql" type="string">
+            <column name="FSQL" length="32000" />
+        </property>
+        <property name="fprocessid" type="string">
+            <column name="FPROCESSID" length="100" />
+        </property>
+        <property name="foreignkey" type="string">
+            <column name="FOREIGNKEY" length="200" />
+        </property>
+    </class>
+</hibernate-mapping>
